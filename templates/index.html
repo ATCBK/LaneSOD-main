@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>车道线分割演示系统</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">LaneSOD</div>
+      <nav class="nav">
+        <a href="#overview">项目概览</a>
+        <a href="#metrics">性能指标</a>
+        <a href="#demo">在线演示</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">车道线分割 · 课程作业演示</p>
+          <h1>基于真实推理流程的车道线分割交互演示页面。</h1>
+          <p class="hero-text">
+            本项目基于 <strong>InSPyReNet（ACCV 2022）</strong> 构建，主要面向公路场景中的车道区域分割。
+            当前页面将原始研究仓库包装成一个轻量级网页演示系统，支持真实图片上传与预测结果展示。
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#demo">开始在线演示</a>
+            <a class="button button-secondary" href="#overview">查看项目说明</a>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div class="panel-card">
+            <div class="panel-label">推理流程</div>
+            <div class="pipeline">
+              <div class="pipeline-step">上传道路图片</div>
+              <div class="pipeline-arrow">→</div>
+              <div class="pipeline-step">车道线模型推理</div>
+              <div class="pipeline-arrow">→</div>
+              <div class="pipeline-step">输出分割结果图</div>
+            </div>
+            <div class="panel-note">
+              页面交互是真实的。后端会实际调用模型，并返回生成后的车道线分割结果图。
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="overview" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">项目概览</p>
+          <h2>从研究代码仓库到可直接展示的网页演示系统。</h2>
+        </div>
+
+        <div class="card-grid three-up">
+          <article class="info-card">
+            <h3>模型基础</h3>
+            <p>
+              该仓库基于 InSPyReNet 框架实现，保留了原始研究代码中的训练、测试和推理流程。
+            </p>
+          </article>
+          <article class="info-card">
+            <h3>核心任务</h3>
+            <p>
+              系统从道路图像中预测车道相关分割区域，并输出可视化叠加图或预测结果图。
+            </p>
+          </article>
+          <article class="info-card">
+            <h3>演示目标</h3>
+            <p>
+              本次课程作业重点不是完整业务系统，而是一个界面清晰、逻辑完整、且具备真实交互能力的演示页面。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="metrics" class="section section-soft">
+        <div class="section-heading">
+          <p class="eyebrow">性能指标</p>
+          <h2>README 中给出的 KAIST Highway 数据集实验结果。</h2>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric-card">
+            <span class="metric-value">94.8</span>
+            <span class="metric-label">最高 F1 分数</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-value">88.5</span>
+            <span class="metric-label">最高 IoU</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-value">43 FPS</span>
+            <span class="metric-label">推理吞吐率</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-value">1.5 GB</span>
+            <span class="metric-label">GPU 显存占用</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <p class="eyebrow">项目流程</p>
+          <h2>仓库仍然保留了原始研究实现中的核心步骤。</h2>
+        </div>
+
+        <div class="card-grid three-up">
+          <article class="info-card">
+            <div class="card-index">01</div>
+            <h3>配置运行环境</h3>
+            <p>安装项目依赖，并在本地准备好预训练权重文件。</p>
+          </article>
+          <article class="info-card">
+            <div class="card-index">02</div>
+            <h3>准备模型权重</h3>
+            <p>将车道线模型权重放在 <code>snapshots/HighwayLane/latest.pth</code> 路径下。</p>
+          </article>
+          <article class="info-card">
+            <div class="card-index">03</div>
+            <h3>执行推理展示</h3>
+            <p>网页端已经将原始推理流程封装成更直观、更适合展示的浏览器交互方式。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="demo" class="section demo-section">
+        <div class="section-heading">
+          <p class="eyebrow">在线演示</p>
+          <h2>上传一张图片，获取真实生成的车道线分割结果。</h2>
+        </div>
+
+        <div class="demo-layout">
+          <form id="predict-form" class="demo-card upload-card">
+            <label class="upload-zone" for="image-input">
+              <input id="image-input" name="image" type="file" accept="image/*" required />
+              <span class="upload-title">选择一张道路场景图片</span>
+              <span class="upload-subtitle">支持 PNG、JPG、BMP、TIFF 格式</span>
+            </label>
+
+            <div class="preview-box">
+              <span class="preview-label">原图预览</span>
+              <img id="source-preview" alt="原图预览" hidden />
+              <p id="source-placeholder" class="placeholder-text">
+                你选择的图片会先显示在这里，随后再开始推理。
+              </p>
+            </div>
+
+            <button class="button button-primary full-width" type="submit">
+              开始推理
+            </button>
+            <p id="form-status" class="status-text" aria-live="polite"></p>
+          </form>
+
+          <div class="demo-card result-card">
+            <div class="result-header">
+              <span class="preview-label">预测结果</span>
+              <span class="result-badge">真实后端调用</span>
+            </div>
+            <img id="result-preview" alt="车道线分割结果" hidden />
+            <p id="result-placeholder" class="placeholder-text">
+              上传完成后，后端会实际调用车道线模型，并将生成的结果图展示在这里。
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>
+        <div class="brand brand-footer">LaneSOD</div>
+        <p class="footer-copy">
+          基于当前仓库 README 内容和真实推理后端实现的课程作业演示网站。
+        </p>
+      </div>
+      <div class="footer-meta">
+        <span>单页 Flask 演示</span>
+        <span>真实图片上传</span>
+        <span>车道线分割输出</span>
+      </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+  </body>
+</html>
